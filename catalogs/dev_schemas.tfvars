@@ -1,0 +1,19 @@
+schemas = [
+  "anomaly_detection",
+  "atlas_rawdata",
+  "default",
+  "delta",
+  "development_sandbox",
+  "enterprise_automation",
+  "fyber_bi",
+  "fyber_bi_utils",
+  "fyber_billing",
+  "joker",
+  "lakehouse",
+  "lakehouse_dimensions",
+  "lakehouse_reporting",
+  "lakehouse_views",
+  "ostap",
+  "ppp",
+  "test"
+]
