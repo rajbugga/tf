@@ -1,0 +1,46 @@
+trigger:
+- none
+
+pr: none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+- group: DAB_POC
+
+
+jobs:
+- job: build_job
+  displayName: DAB_install
+  steps: 
+  - task: Bash@3
+    displayName: 'DAB_install'
+    inputs:
+      targetType: inline
+      workingDirectory: '$(System.DefaultWorkingDirectory)/Jetlinx_POC'
+      script: |
+        curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+        databricks -v
+
+  - task: PowerShell@2
+    displayName: 'DAB_setup'
+    inputs:
+      targetType: inline
+      workingDirectory: '$(System.DefaultWorkingDirectory)/Jetlinx_POC'
+      script: |
+        databricks bundle deploy 
+    env:
+        DATABRICKS_HOST: $(DATABRICKS_HOST)
+        DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)
+
+  - task: PowerShell@2
+    displayName: 'DAB_run'
+    inputs:
+      targetType: inline
+      workingDirectory: '$(System.DefaultWorkingDirectory)/Jetlinx_POC'
+      script: |
+        databricks bundle run Jetlinx_POC_job 
+    env:
+        DATABRICKS_HOST: $(DATABRICKS_HOST)
+        DATABRICKS_TOKEN: $(DATABRICKS_TOKEN)

@@ -1,0 +1,9 @@
+# The main pipeline for Jetlinx_POC
+resources:
+  pipelines:
+    Jetlinx_POC_pipeline:
+      name: Jetlinx_POC_pipeline
+      target: Jetlinx_POC_${bundle.environment}
+      libraries:
+        - notebook:
+            path: ../src/dlt_pipeline.ipynb
